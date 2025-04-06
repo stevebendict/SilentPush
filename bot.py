@@ -45,7 +45,7 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"🕒 Time: {update.message.date}"
         )
         try:
-            await context.bot.send_message(chat_id="@silentpush", text=log_message)
+            await context.bot.send_message(chat_id="-1002467983364", text=log_message)
         except Exception as e:
             logger.warning(f"⚠️ Failed to send audit log: {e}")
         return
