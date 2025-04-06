@@ -10,21 +10,21 @@ import logging
 print(">>> DEBUG: Loading environment variables...")
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = os.getenv("ADMIN_ID")
+ADMIN_IDS = os.getenv("ADMIN_IDS")
 TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
 
 print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
-print(f">>> ADMIN_ID: {repr(ADMIN_ID)}")
+print(f">>> ADMIN_IDS: {repr(ADMIN_IDS)}")
 print(f">>> TARGET_CHANNEL: {repr(TARGET_CHANNEL)}")
 
 # Fallback to hardcoded values if env vars fail
 if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
     print("❌ BOT_TOKEN not loaded from env! Falling back to hardcoded.")
     BOT_TOKEN = "7780572044:AAHGLKvdqSvfZ9_ovScbqH3SpJ55wsvRAfs"
-    ADMIN_ID = 6043250029
+    ADMIN_IDS = [6043250029, 7732449589]
     TARGET_CHANNEL = "-1002618211021"
 else:
-    ADMIN_ID = int(ADMIN_ID)
+    ADMIN_IDs = int(ADMIN_IDs)
 
 QUEUE = []
 
