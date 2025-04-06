@@ -25,7 +25,8 @@ if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
     ADMIN_IDS = [6043250029, 7732449589]
     TARGET_CHANNEL = "-1002618211021"
 else:
-    ADMIN_IDs = int(ADMIN_IDs)
+    ADMIN_IDS = list(map(int, admin_ids_env.split(",")))
+
 
 QUEUE = []
 
