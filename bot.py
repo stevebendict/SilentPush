@@ -22,7 +22,7 @@ if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
     print("❌ BOT_TOKEN not loaded from env! Falling back to hardcoded.")
     BOT_TOKEN = "7780572044:AAHGLKvdqSvfZ9_ovScbqH3SpJ55wsvRAfs"
     ADMIN_ID = 6043250029
-    TARGET_CHANNEL = "@singaporeconsulting"
+    TARGET_CHANNEL = "-1002618211021"
 else:
     ADMIN_ID = int(ADMIN_ID)
 
