@@ -5,9 +5,11 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 
 # === CONFIG ===
-BOT_TOKEN = '7780572044:AAHGLKvdqSvfZ9_ovScbqH3SpJ55wsvRAfs'
-ADMIN_ID = 6043250029
-TARGET_CHANNEL = '@singaporeconsulting'
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
+TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
+
 
 QUEUE = []
 
