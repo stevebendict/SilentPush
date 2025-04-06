@@ -93,6 +93,6 @@ app.add_handler(CommandHandler("clear", clear_queue))
 app.add_handler(CommandHandler("status", show_status))
 app.add_handler(CommandHandler("ping", ping))
 
-app.job_queue.run_repeating(forward_from_queue, interval=180, first=10)
+app.job_queue.run_repeating(forward_from_queue, interval=60, first=10)
 
 app.run_polling()
