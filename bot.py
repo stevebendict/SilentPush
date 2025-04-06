@@ -54,6 +54,8 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg = update.message
     QUEUE.append((msg.chat_id, msg.message_id))
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
+    logger.info(f"✅ Queued by admin {update.effective_user.id}")
+
 
 
 async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
