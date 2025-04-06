@@ -8,7 +8,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, ContextTyp
 import logging
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = os.getenv("ADMIN_ID")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
 TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
 
 QUEUE = []
