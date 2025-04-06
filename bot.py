@@ -10,7 +10,8 @@ import logging
 print(">>> DEBUG: Loading environment variables...")
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_IDS = os.getenv("ADMIN_IDS")
+admin_ids_env = os.getenv("ADMIN_IDS")
+ADMIN_IDS = list(map(int, admin_ids_env.split(","))) if admin_ids_env else []
 TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
 
 print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
