@@ -59,7 +59,7 @@ async def on_startup(application: Application):
 
 if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
     raise RuntimeError("❌ BOT_TOKEN missing or invalid. Check your environment variables.")
-app = Application.builder().token(BOT_TOKEN).post_init(on_startup).build()
+app = Application.builder().token("BOT_TOKEN").post_init(on_startup).build()
 
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
 app.add_handler(CommandHandler("clear", clear_queue))
