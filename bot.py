@@ -88,10 +88,15 @@ async def on_startup(application: Application):
 
 app = Application.builder().token(BOT_TOKEN).post_init(on_startup).build()
 
-app.add_handler(MessageHandler(filters.ALL, add_to_queue))
+# COMMANDS FIRST
 app.add_handler(CommandHandler("clear", clear_queue))
 app.add_handler(CommandHandler("status", show_status))
 app.add_handler(CommandHandler("ping", ping))
+
+# QUEUE EVERYTHING ELSE (non-command messages)
+app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), add_to_queue))
+app.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VIDEO | filters.AUDIO, add_to_queue))
+
 
 app.job_queue.run_repeating(forward_from_queue, interval=60, first=10)
 
