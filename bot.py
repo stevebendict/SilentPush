@@ -7,9 +7,24 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 import logging
 
+print(">>> DEBUG: Loading environment variables...")
+
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = int(os.getenv("ADMIN_ID", "0"))
+ADMIN_ID = os.getenv("ADMIN_ID")
 TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
+
+print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
+print(f">>> ADMIN_ID: {repr(ADMIN_ID)}")
+print(f">>> TARGET_CHANNEL: {repr(TARGET_CHANNEL)}")
+
+# Fallback to hardcoded values if env vars fail
+if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
+    print("❌ BOT_TOKEN not loaded from env! Falling back to hardcoded.")
+    BOT_TOKEN = "7780572044:AAHGLKvdqSvfZ9_ovScbqH3SpJ55wsvRAfs"
+    ADMIN_ID = 6043250029
+    TARGET_CHANNEL = "@singaporeconsulting"
+else:
+    ADMIN_ID = int(ADMIN_ID)
 
 QUEUE = []
 
@@ -57,9 +72,7 @@ async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def on_startup(application: Application):
     logger.info("🚀 Bot started and ready.")
 
-if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
-    raise RuntimeError("❌ BOT_TOKEN missing or invalid. Check your environment variables.")
-app = Application.builder().token("BOT_TOKEN").post_init(on_startup).build()
+app = Application.builder().token(BOT_TOKEN).post_init(on_startup).build()
 
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
 app.add_handler(CommandHandler("clear", clear_queue))
