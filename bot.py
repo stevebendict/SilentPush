@@ -1,8 +1,8 @@
 
 import os
+import logging
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
-import logging
 
 # === CONFIG ===
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -11,7 +11,11 @@ TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
 
 QUEUE = []
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 # === HANDLERS ===
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -19,7 +23,7 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     msg = update.message
     QUEUE.append((msg.chat_id, msg.message_id))
-    await msg.reply_text("✅ Queued!")
+    await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
 
 async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
@@ -31,8 +35,9 @@ async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
             from_chat_id=chat_id,
             message_id=message_id
         )
+        logger.info(f"Forwarded message {message_id} from {chat_id}")
     except Exception as e:
-        print(f"⚠️ Failed to forward message {message_id}: {e}")
+        logger.warning(f"⚠️ Failed to forward message {message_id}: {e}")
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ADMIN_ID:
@@ -45,12 +50,20 @@ async def show_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     await update.message.reply_text(f"📦 Queue length: {len(QUEUE)}")
 
+async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("✅ Bot is alive and ready.")
+
+# === STARTUP LOG ===
+async def on_startup(application: Application):
+    logger.info("🚀 Bot started and ready.")
+
 # === BOT APP ===
-app = Application.builder().token(BOT_TOKEN).build()
+app = Application.builder().token(BOT_TOKEN).post_init(on_startup).build()
 
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
 app.add_handler(CommandHandler("clear", clear_queue))
 app.add_handler(CommandHandler("status", show_status))
+app.add_handler(CommandHandler("ping", ping))
 
 app.job_queue.run_repeating(forward_from_queue, interval=180, first=10)  # every 3 minutes
 

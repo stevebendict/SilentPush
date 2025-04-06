@@ -1,27 +1,30 @@
 
-# SilentPushBot (Render-Ready)
+# SilentPushBot (Railway-Ready)
 
-This is a lightweight Telegram forward scheduler bot.
+## 🚀 Features
+- Queues messages you send it
+- Forwards one every 3 minutes
+- `/status` — shows current queue count
+- `/clear` — clears queue
+- `/ping` — basic health check
 
-## 🔧 Setup Instructions
+## 🛠 Deployment (Railway)
 
-1. Create a new GitHub repo (or use Render's direct deploy)
-2. Upload these files
-3. Set the following Environment Variables in Render:
-   - `BOT_TOKEN`: Your Telegram bot token
-   - `ADMIN_ID`: Your Telegram user ID (e.g. 6043250029)
-   - `TARGET_CHANNEL`: Your channel ID or @username
+1. Push this folder to GitHub
+2. Go to [https://railway.app](https://railway.app)
+3. Create a **New Project → Deploy from GitHub**
+4. Select this repo
+5. Set the environment variables:
+   - `BOT_TOKEN`: Your bot token
+   - `ADMIN_ID`: Your Telegram user ID
+   - `TARGET_CHANNEL`: Your channel ID (e.g., -100xxxxxxxxxx or @username if public)
 
-## 📦 How It Works
+## 🔁 Restarting the Bot
+If Railway sleeps it:
+- Click **Deploy** again
+- Or push a small change to GitHub
 
-- You (the admin) send or forward messages to the bot
-- The bot queues each message
-- Every 3 minutes, it forwards one message from the queue to your channel
-- Use `/clear` to wipe the queue, `/status` to check queue size
-
-## 🛠 Files
-
-- `bot.py`: Main bot logic
-- `Procfile`: Render worker declaration
-- `requirements.txt`: Dependencies
-- `.env.example`: Template for your variables
+## 🔔 Uptime Monitoring
+- You can add `/ping` to UptimeRobot (check every 1 hour)
+- If it returns 200 OK → bot is alive
+- If not → go click “Deploy” on Railway
