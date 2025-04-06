@@ -35,11 +35,25 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id != ADMIN_ID:
+    user = update.effective_user
+    if user.id != ADMIN_ID:
+        # Log unauthorized access
+        log_message = (
+            "⛔ Unauthorized access attempt\n"
+            f"👤 User ID: {user.id}\n"
+            f"📛 Username: @{user.username if user.username else 'None'}\n"
+            f"🕒 Time: {update.message.date}"
+        )
+        try:
+            await context.bot.send_message(chat_id="@silentpush", text=log_message)
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to send audit log: {e}")
         return
+
     msg = update.message
     QUEUE.append((msg.chat_id, msg.message_id))
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
+
 
 async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
