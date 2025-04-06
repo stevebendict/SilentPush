@@ -11,12 +11,7 @@ print(">>> DEBUG: Loading environment variables...")
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 admin_ids_env = os.getenv("ADMIN_IDS")
-ADMIN_IDS = list(map(int, admin_ids_env.split(","))) if admin_ids_env else []
 TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
-
-print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
-print(f">>> ADMIN_IDS: {repr(ADMIN_IDS)}")
-print(f">>> TARGET_CHANNEL: {repr(TARGET_CHANNEL)}")
 
 # Fallback to hardcoded values if env vars fail
 if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
@@ -27,6 +22,9 @@ if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
 else:
     ADMIN_IDS = list(map(int, admin_ids_env.split(",")))
 
+print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
+print(f">>> ADMIN_IDS: {repr(ADMIN_IDS)}")
+print(f">>> TARGET_CHANNEL: {repr(TARGET_CHANNEL)}")
 
 QUEUE = []
 
@@ -38,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    if user.id != ADMIN_IDS:
+    if user.id not in ADMIN_IDS:
         # Log unauthorized access
         log_message = (
             "⛔ Unauthorized access attempt\n"
@@ -57,8 +55,6 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
     logger.info(f"✅ Queued by admin {update.effective_user.id}")
 
-
-
 async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
         return
@@ -75,14 +71,12 @@ async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id not in ADMIN_IDS:
-
         return
     QUEUE.clear()
     await update.message.reply_text("🗑️ Queue cleared.")
 
 async def show_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id not in ADMIN_IDS:
-
         return
     await update.message.reply_text(f"📦 Queue length: {len(QUEUE)}")
 
