@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    if user.id != ADMIN_ID:
+    if user.id != ADMIN_IDS:
         # Log unauthorized access
         log_message = (
             "⛔ Unauthorized access attempt\n"
