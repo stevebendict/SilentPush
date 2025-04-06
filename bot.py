@@ -1,22 +1,15 @@
 
-
-
-
-
 import os
-import logging
+from dotenv import load_dotenv
+load_dotenv()
+
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
+import logging
 
-
-
-
-# === CONFIG ===
-
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-ADMIN_ID = int(os.getenv('ADMIN_ID'))
-TARGET_CHANNEL = os.getenv('TARGET_CHANNEL')
-
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
+TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
 
 QUEUE = []
 
@@ -26,7 +19,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# === HANDLERS ===
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ADMIN_ID:
         return
@@ -62,11 +54,9 @@ async def show_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("✅ Bot is alive and ready.")
 
-# === STARTUP LOG ===
 async def on_startup(application: Application):
     logger.info("🚀 Bot started and ready.")
 
-# === BOT APP ===
 app = Application.builder().token(BOT_TOKEN).post_init(on_startup).build()
 
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
@@ -74,6 +64,6 @@ app.add_handler(CommandHandler("clear", clear_queue))
 app.add_handler(CommandHandler("status", show_status))
 app.add_handler(CommandHandler("ping", ping))
 
-app.job_queue.run_repeating(forward_from_queue, interval=180, first=10)  # every 3 minutes
+app.job_queue.run_repeating(forward_from_queue, interval=180, first=10)
 
 app.run_polling()
