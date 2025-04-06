@@ -70,13 +70,15 @@ async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
         logger.warning(f"⚠️ Failed to forward message {message_id}: {e}")
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id != ADMIN_ID:
+    if update.effective_user.id not in ADMIN_IDS:
+
         return
     QUEUE.clear()
     await update.message.reply_text("🗑️ Queue cleared.")
 
 async def show_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id != ADMIN_ID:
+    if update.effective_user.id not in ADMIN_IDS:
+
         return
     await update.message.reply_text(f"📦 Queue length: {len(QUEUE)}")
 
