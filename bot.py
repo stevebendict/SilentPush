@@ -62,17 +62,22 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
         return
-    chat_id, message_id = QUEUE.pop(0)
-    try:
-        await context.bot.copy_message(
-    chat_id=TARGET_CHANNEL,
-    from_chat_id=chat_id,
-    message_id=message_id
-)
 
-        logger.info(f"Forwarded message {message_id} from {chat_id}")
-    except Exception as e:
-        logger.warning(f"⚠️ Failed to forward message {message_id}: {e}")
+    chat_id, message_id = QUEUE.pop(0)
+    targets = [TARGET_CHANNEL_PUBLIC, TARGET_CHANNEL_PRIVATE]
+
+    for target in targets:
+        try:
+            await context.bot.copy_message(
+                chat_id=target,
+                from_chat_id=chat_id,
+                message_id=message_id
+            )
+            logger.info(f"✅ Copied message {message_id} from {chat_id} to {target}")
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to copy message {message_id} to {target}: {e}")
+            print(f"❌ Error copying to {target}: {e}")
+
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id not in ADMIN_IDS:
