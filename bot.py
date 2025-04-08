@@ -9,16 +9,11 @@ import logging
 
 print(">>> DEBUG: Loading environment variables...")
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-admin_ids_env = os.getenv("ADMIN_IDS")
-TARGET_CHANNEL = os.getenv("TARGET_CHANNEL")
-
-# Fallback to hardcoded values if env vars fail
-if not BOT_TOKEN or not BOT_TOKEN.startswith("7780"):
-    print("❌ BOT_TOKEN not loaded from env! Falling back to hardcoded.")
     BOT_TOKEN = "7780572044:AAHGLKvdqSvfZ9_ovScbqH3SpJ55wsvRAfs"
     ADMIN_IDS = [6043250029, 7732449589]
-    TARGET_CHANNEL = "-1002618211021"
+    TARGET_CHANNEL_PUBLIC = "-1002500055359"     # Public Channel
+    TARGET_CHANNEL_PRIVATE = "-1002567822689"    # Paid Private Channel
+
 else:
     ADMIN_IDS = list(map(int, admin_ids_env.split(",")))
 
