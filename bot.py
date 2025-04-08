@@ -34,34 +34,35 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+from datetime import timezone  # ✅ Move this to top with other imports
+
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    from datetime import timezone  # Put this import at the top if not already present
 
-if user.id not in ADMIN_IDS:
-    # Log unauthorized access with formatted HTML message
-    log_message = (
-        "<b>🚨 UNAUTHORIZED ACCESS ATTEMPT</b>\n\n"
-        f"👤 <b>User ID:</b> <code>{user.id}</code>\n"
-        f"📛 <b>Username:</b> @{user.username if user.username else 'None'}\n"
-        f"🕒 <b>Time:</b> <i>{update.message.date.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}</i>"
-    )
-    try:
-        await context.bot.send_message(
-            chat_id="-1002467983364",  # Your audit group ID
-            text=log_message,
-            parse_mode="HTML"
+    if user.id not in ADMIN_IDS:
+        # Log unauthorized access with formatted HTML message
+        log_message = (
+            "<b>🚨 UNAUTHORIZED ACCESS ATTEMPT</b>\n\n"
+            f"👤 <b>User ID:</b> <code>{user.id}</code>\n"
+            f"📛 <b>Username:</b> @{user.username if user.username else 'None'}\n"
+            f"🕒 <b>Time:</b> <i>{update.message.date.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}</i>"
         )
-    except Exception as e:
-        logger.warning(f"⚠️ Failed to send audit log: {e}")
-        print(f"❌ Could not send unauthorized log to group: {e}")
-    return
-
+        try:
+            await context.bot.send_message(
+                chat_id="-1002467983364",  # Your audit group ID
+                text=log_message,
+                parse_mode="HTML"
+            )
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to send audit log: {e}")
+            print(f"❌ Could not send unauthorized log to group: {e}")
+        return
 
     msg = update.message
     QUEUE.append((msg.chat_id, msg.message_id))
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
     logger.info(f"✅ Queued by admin {update.effective_user.id}")
+
 
 async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
