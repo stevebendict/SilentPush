@@ -64,7 +64,7 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     logger.info(f"✅ Queued by admin {update.effective_user.id}")
 
 
-async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
+async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
         return
     chat_id, message_id = QUEUE.pop(0)
