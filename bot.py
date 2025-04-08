@@ -82,31 +82,15 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
     if not QUEUE:
         return
 
-    chat_id, message_id = QUEUE.pop(0)
+    chat_id, message_id, media_type, duration = QUEUE.pop(0)
 
-    try:
-        # Fetch the message so we can analyze it
-        message = await context.bot.forward_message(
-            chat_id=context.bot.id,
-            from_chat_id=chat_id,
-            message_id=message_id
-        )
+    send_to_public = True
+    send_to_private = True
 
-        # Default behavior: send to both
-        send_to_public = True
-        send_to_private = True
+    # Restrict public posts if video is too long
+    if media_type == "video" and duration > 60:
+        send_to_public = False
 
-        # Check if it's a video and get duration
-        if message.video:
-            duration = message.video.duration
-            if duration > 60:
-                send_to_public = False  # Don't send long videos to public
-
-    except Exception as e:
-        logger.warning(f"⚠️ Failed to inspect message {message_id} from {chat_id}: {e}")
-        return
-
-    # Decide target channels
     targets = []
     if send_to_private:
         targets.append(TARGET_CHANNEL_PRIVATE)
@@ -122,7 +106,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
             )
             logger.info(f"✅ Copied message {message_id} to {target}")
 
-            # Track and promote every 10 public posts
+            # Track public posts and auto-promo every 10th
             if target == TARGET_CHANNEL_PUBLIC:
                 PUBLIC_POST_COUNTER += 1
                 print(f"📊 Public post count: {PUBLIC_POST_COUNTER}")
@@ -137,11 +121,11 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                         logger.info("📢 Sent promo message to public channel")
                     except Exception as e:
                         logger.warning(f"⚠️ Failed to send promo: {e}")
-                    PUBLIC_POST_COUNTER = 0  # Reset after promo
-
+                    PUBLIC_POST_COUNTER = 0  # Reset
         except Exception as e:
             logger.warning(f"⚠️ Failed to send to {target}: {e}")
             print(f"❌ Copy error to {target}: {e}")
+
 
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
