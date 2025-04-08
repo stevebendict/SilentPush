@@ -69,11 +69,12 @@ async def forward_from_queue(context: ContextTypes.DEFAULT_TYPE):
         return
     chat_id, message_id = QUEUE.pop(0)
     try:
-        await context.bot.forward_message(
-            chat_id=TARGET_CHANNEL,
-            from_chat_id=chat_id,
-            message_id=message_id
-        )
+        await context.bot.copy_message(
+    chat_id=TARGET_CHANNEL,
+    from_chat_id=chat_id,
+    message_id=message_id
+)
+
         logger.info(f"Forwarded message {message_id} from {chat_id}")
     except Exception as e:
         logger.warning(f"⚠️ Failed to forward message {message_id}: {e}")
