@@ -96,6 +96,8 @@ app.add_handler(CommandHandler("ping", ping))
 # QUEUE EVERYTHING ELSE (non-command messages)
 app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), add_to_queue))
 app.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VIDEO | filters.AUDIO, add_to_queue))
+# Catch-all fallback for any message type not already handled
+app.add_handler(MessageHandler(filters.ALL, add_to_queue))
 
 
 app.job_queue.run_repeating(forward_from_queue, interval=60, first=10)
