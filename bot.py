@@ -9,17 +9,18 @@ import logging
 
 print(">>> DEBUG: Loading environment variables...")
 
-    BOT_TOKEN = "7728785789:AAEK7O-NBdl4XD1DhtpBM_oeGb48Ptl7ZpA"
-    ADMIN_IDS = [6043250029, 7732449589]
-    TARGET_CHANNEL_PUBLIC = "-1002500055359"     # Public Channel
-    TARGET_CHANNEL_PRIVATE = "-1002567822689"    # Paid Private Channel
+# ✅ Hardcoded config
+BOT_TOKEN = "7728785789:AAEK7O-NBdl4XD1DhtpBM_oeGb48Ptl7ZpA"
+ADMIN_IDS = [6043250029, 7732449589]
+TARGET_CHANNEL_PUBLIC = "-1002500055359"     # Public Channel
+TARGET_CHANNEL_PRIVATE = "-1002567822689"    # Paid Private Channel
 
-else:
-    ADMIN_IDS = list(map(int, admin_ids_env.split(",")))
-
+# ✅ Optional debug print
 print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
 print(f">>> ADMIN_IDS: {repr(ADMIN_IDS)}")
-print(f">>> TARGET_CHANNEL: {repr(TARGET_CHANNEL)}")
+print(f">>> PUBLIC CHANNEL ID: {TARGET_CHANNEL_PUBLIC}")
+print(f">>> PRIVATE CHANNEL ID: {TARGET_CHANNEL_PRIVATE}")
+
 
 QUEUE = []
 
