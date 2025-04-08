@@ -24,6 +24,8 @@ print(f">>> PRIVATE CHANNEL ID: {TARGET_CHANNEL_PRIVATE}")
 
 QUEUE = []
 
+PUBLIC_POST_COUNTER = 0  # Track how many times we've posted to public channel
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
