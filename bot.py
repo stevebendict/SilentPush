@@ -110,6 +110,6 @@ app.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VI
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
 
 
-app.job_queue.run_repeating(forward_from_queue, interval=60, first=10)
+app.job_queue.run_repeating(copy_from_queue, interval=60, first=10)
 
 app.run_polling()
