@@ -65,8 +65,37 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
         return
 
     chat_id, message_id = QUEUE.pop(0)
-    targets = [TARGET_CHANNEL_PUBLIC, TARGET_CHANNEL_PRIVATE]
 
+    try:
+        # Fetch the message so we can analyze it
+        message = await context.bot.forward_message(
+            chat_id=context.bot.id,
+            from_chat_id=chat_id,
+            message_id=message_id
+        )
+
+        # Default behavior: send to both
+        send_to_public = True
+        send_to_private = True
+
+        # Check if it's a video and get duration
+        if message.video:
+            duration = message.video.duration
+            if duration > 60:
+                send_to_public = False  # Don't send long videos to public
+
+    except Exception as e:
+        logger.warning(f"⚠️ Failed to inspect message {message_id} from {chat_id}: {e}")
+        return
+
+    # Decide target channels
+    targets = []
+    if send_to_private:
+        targets.append(TARGET_CHANNEL_PRIVATE)
+    if send_to_public:
+        targets.append(TARGET_CHANNEL_PUBLIC)
+
+    # Send message to selected targets
     for target in targets:
         try:
             await context.bot.copy_message(
@@ -74,10 +103,11 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                 from_chat_id=chat_id,
                 message_id=message_id
             )
-            logger.info(f"✅ Copied message {message_id} from {chat_id} to {target}")
+            logger.info(f"✅ Copied message {message_id} to {target}")
         except Exception as e:
-            logger.warning(f"⚠️ Failed to copy message {message_id} to {target}: {e}")
-            print(f"❌ Error copying to {target}: {e}")
+            logger.warning(f"⚠️ Failed to send to {target}: {e}")
+            print(f"❌ Copy error to {target}: {e}")
+
 
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
