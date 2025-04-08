@@ -57,7 +57,21 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     msg = update.message
-    QUEUE.append((msg.chat_id, msg.message_id))
+    media_type = None
+duration = 0
+
+if msg.video:
+    media_type = "video"
+    duration = msg.video.duration
+elif msg.photo:
+    media_type = "photo"
+elif msg.document:
+    media_type = "document"
+elif msg.text:
+    media_type = "text"
+
+QUEUE.append((msg.chat_id, msg.message_id, media_type, duration))
+
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
     logger.info(f"✅ Queued by admin {update.effective_user.id}")
 
