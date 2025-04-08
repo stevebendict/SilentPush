@@ -36,19 +36,27 @@ logger = logging.getLogger(__name__)
 
 async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    if user.id not in ADMIN_IDS:
-        # Log unauthorized access
-        log_message = (
-            "⛔ Unauthorized access attempt\n"
-            f"👤 User ID: {user.id}\n"
-            f"📛 Username: @{user.username if user.username else 'None'}\n"
-            f"🕒 Time: {update.message.date}"
+    from datetime import timezone  # Put this import at the top if not already present
+
+if user.id not in ADMIN_IDS:
+    # Log unauthorized access with formatted HTML message
+    log_message = (
+        "<b>🚨 UNAUTHORIZED ACCESS ATTEMPT</b>\n\n"
+        f"👤 <b>User ID:</b> <code>{user.id}</code>\n"
+        f"📛 <b>Username:</b> @{user.username if user.username else 'None'}\n"
+        f"🕒 <b>Time:</b> <i>{update.message.date.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}</i>"
+    )
+    try:
+        await context.bot.send_message(
+            chat_id="-1002467983364",  # Your audit group ID
+            text=log_message,
+            parse_mode="HTML"
         )
-        try:
-            await context.bot.send_message(chat_id="-1002467983364", text=log_message)
-        except Exception as e:
-            logger.warning(f"⚠️ Failed to send audit log: {e}")
-        return
+    except Exception as e:
+        logger.warning(f"⚠️ Failed to send audit log: {e}")
+        print(f"❌ Could not send unauthorized log to group: {e}")
+    return
+
 
     msg = update.message
     QUEUE.append((msg.chat_id, msg.message_id))
