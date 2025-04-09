@@ -113,37 +113,36 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                 PUBLIC_POST_COUNTER += 1
                 print(f"📊 Public post count: {PUBLIC_POST_COUNTER}")
                 if PUBLIC_POST_COUNTER >= 3:
-                    try:
-                        # Promo message rotation pool
-promo_messages = [
-    "🔥 <b>Want the full uncensored?</b>\n"
-    "🔓 Join the <a href='https://t.me/+FCugUePRvK0zN2U9'>BOA VIP archive</a> for exclusive sets.\n\n"
-    "<i>All content is AI-generated. No real identities. 18+ fantasy only.</i>",
+    try:
+        # Promo message rotation pool
+        promo_messages = [
+            "🔥 <b>Want the full uncensored?</b>\n"
+            "🔓 Join the <a href='https://t.me/+FCugUePRvK0zN2U9'>BOA VIP archive</a> for exclusive sets.\n\n"
+            "<i>All content is AI-generated. No real identities. 18+ fantasy only.</i>",
 
-    "💎 <b>Unblurred, uncut, unreleased.</b>\n"
-    "🖤 Access the archive: <a href='https://t.me/+FCugUePRvK0zN2U9'>Join BOA VIP</a>\n\n"
-    "<i>Crafted with Midjourney & LORA. NSFW AI art. Fiction only.</i>",
+            "💎 <b>Unblurred, uncut, unreleased.</b>\n"
+            "🖤 Access the archive: <a href='https://t.me/+FCugUePRvK0zN2U9'>Join BOA VIP</a>\n\n"
+            "<i>Crafted with Midjourney & LORA. NSFW AI art. Fiction only.</i>",
 
-    "👀 <b>What you see is just the surface.</b>\n"
-    "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+FCugUePRvK0zN2U9'>BOA VIP Vault</a>\n\n"
-    "<i>All models are synthetic. Viewer discretion advised. 18+ only.</i>"
-]
+            "👀 <b>What you see is just the surface.</b>\n"
+            "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+FCugUePRvK0zN2U9'>BOA VIP Vault</a>\n\n"
+            "<i>All models are synthetic. Viewer discretion advised. 18+ only.</i>"
+        ]
 
-# Pick one randomly
-promo_text = random.choice(promo_messages)
+        # Pick one randomly
+        promo_text = random.choice(promo_messages)
 
-await context.bot.send_message(
-    chat_id=TARGET_CHANNEL_PUBLIC,
-    text=promo_text,
-    parse_mode="HTML",
-    disable_web_page_preview=True
-)
+        await context.bot.send_message(
+            chat_id=TARGET_CHANNEL_PUBLIC,
+            text=promo_text,
+            parse_mode="HTML",
+            disable_web_page_preview=True
+        )
 
-                        )
-                        logger.info("📢 Sent promo message to public channel")
-                    except Exception as e:
-                        logger.warning(f"⚠️ Failed to send promo: {e}")
-                    PUBLIC_POST_COUNTER = 0  # Reset
+        logger.info("📢 Sent promo message to public channel")
+    except Exception as e:
+        logger.warning(f"⚠️ Failed to send promo: {e}")
+    PUBLIC_POST_COUNTER = 0  # Reset
         except Exception as e:
             logger.warning(f"⚠️ Failed to send to {target}: {e}")
             print(f"❌ Copy error to {target}: {e}")
