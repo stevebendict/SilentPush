@@ -15,7 +15,7 @@ print(">>> DEBUG: Loading environment variables...")
 BOT_TOKEN = "7728785789:AAEK7O-NBdl4XD1DhtpBM_oeGb48Ptl7ZpA"
 ADMIN_IDS = [6043250029, 7664906760]
 TARGET_CHANNEL_PUBLIC = "-1002500055359"     # Public Channel
-TARGET_CHANNEL_PRIVATE = "-1002509063620"    # Paid Private Channel
+TARGET_CHANNEL_PRIVATE = "-1002579354695"    # Paid Private Channel
 
 # ✅ Optional debug print
 print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
