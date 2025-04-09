@@ -86,7 +86,6 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
     global PUBLIC_POST_COUNTER
     global last_activity_time
-    global PUBLIC_POST_COUNTER
 
     if not QUEUE:
         return
