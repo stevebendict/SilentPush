@@ -152,7 +152,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
             print(f"❌ Copy error to {target}: {e}")
     
     if not QUEUE:
-    last_activity_time = time.time()
+        last_activity_time = time.time()
 
 async def shutdown_if_idle(context: ContextTypes.DEFAULT_TYPE):
     idle_limit = 90 * 60  # 90 minutes in seconds
