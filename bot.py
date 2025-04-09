@@ -26,6 +26,13 @@ print(f">>> PRIVATE CHANNEL ID: {TARGET_CHANNEL_PRIVATE}")
 
 QUEUE = []  # Each item: (chat_id, message_id, media_type, duration)
 
+import time
+import asyncio
+import os
+
+last_activity_time = time.time()  # Track last activity for idle shutdown
+
+
 PUBLIC_POST_COUNTER = 0  # Track how many times we've posted to public channel
 
 logging.basicConfig(
