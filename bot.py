@@ -8,7 +8,6 @@ from telegram.ext import Application, CommandHandler, MessageHandler, ContextTyp
 import logging
 import random  # 👈 Add this for rotating promo messages
 
-
 print(">>> DEBUG: Loading environment variables...")
 
 # ✅ Hardcoded config
@@ -23,7 +22,6 @@ print(f">>> ADMIN_IDS: {repr(ADMIN_IDS)}")
 print(f">>> PUBLIC CHANNEL ID: {TARGET_CHANNEL_PUBLIC}")
 print(f">>> PRIVATE CHANNEL ID: {TARGET_CHANNEL_PRIVATE}")
 
-
 QUEUE = []  # Each item: (chat_id, message_id, media_type, duration)
 
 import time
@@ -31,7 +29,6 @@ import asyncio
 import os
 
 last_activity_time = time.time()  # Track last activity for idle shutdown
-
 
 PUBLIC_POST_COUNTER = 0  # Track how many times we've posted to public channel
 
@@ -86,9 +83,6 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
     logger.info(f"✅ Queued by admin {update.effective_user.id}")
-
-
-
 
 async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
     global PUBLIC_POST_COUNTER
@@ -156,14 +150,10 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             logger.warning(f"⚠️ Failed to send to {target}: {e}")
             print(f"❌ Copy error to {target}: {e}")
-
-
-    # ⏱️ Reset idle timer if queue is empty after processing
+    
     if not QUEUE:
     global last_activity_time
     last_activity_time = time.time()
-
-
 
 async def shutdown_if_idle(context: ContextTypes.DEFAULT_TYPE):
     global last_activity_time
@@ -173,7 +163,6 @@ async def shutdown_if_idle(context: ContextTypes.DEFAULT_TYPE):
         logger.info("💤 No activity for 90 minutes. Shutting down.")
         await context.application.stop()
         os._exit(0)
-
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id not in ADMIN_IDS:
@@ -204,7 +193,6 @@ app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), add_to_queue))
 app.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VIDEO | filters.AUDIO, add_to_queue))
 # Catch-all fallback for any message type not already handled
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
-
 
 app.job_queue.run_repeating(copy_from_queue, interval=60, first=10)
 app.job_queue.run_repeating(shutdown_if_idle, interval=300, first=300)
