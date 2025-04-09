@@ -110,7 +110,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
             if target == TARGET_CHANNEL_PUBLIC:
                 PUBLIC_POST_COUNTER += 1
                 print(f"📊 Public post count: {PUBLIC_POST_COUNTER}")
-                if PUBLIC_POST_COUNTER >= 10:
+                if PUBLIC_POST_COUNTER >= 1:
                     try:
                         await context.bot.send_message(
                             chat_id=TARGET_CHANNEL_PUBLIC,
