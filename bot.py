@@ -76,7 +76,10 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif msg.text:
         media_type = "text"
 
+    # ✅ Append regardless of type — as long as it's valid
+    if media_type:
         QUEUE.append((msg.chat_id, msg.message_id, media_type, duration))
+
 
     global last_activity_time
     last_activity_time = time.time()  # ⏱️ Reset idle timer
