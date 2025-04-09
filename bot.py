@@ -158,6 +158,14 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
             print(f"❌ Copy error to {target}: {e}")
 
 
+async def shutdown_if_idle(context: ContextTypes.DEFAULT_TYPE):
+    global last_activity_time
+    idle_limit = 90 * 60  # 90 minutes in seconds
+
+    if time.time() - last_activity_time >= idle_limit:
+        logger.info("💤 No activity for 90 minutes. Shutting down.")
+        await context.application.stop()
+        os._exit(0)
 
 
 async def clear_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
