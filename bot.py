@@ -153,9 +153,15 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                     except Exception as e:
                         logger.warning(f"⚠️ Failed to send promo: {e}")
                     PUBLIC_POST_COUNTER = 0  # Reset
-        except Exception as e:
+                except Exception as e:
             logger.warning(f"⚠️ Failed to send to {target}: {e}")
             print(f"❌ Copy error to {target}: {e}")
+
+# ⏱️ Reset idle timer if queue is empty after processing
+if not QUEUE:
+    global last_activity_time
+    last_activity_time = time.time()
+
 
 
 async def shutdown_if_idle(context: ContextTypes.DEFAULT_TYPE):
