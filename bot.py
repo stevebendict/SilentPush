@@ -117,15 +117,15 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                         # Promo message rotation pool
                         promo_messages = [
                             "🔥 <b>Want the full uncensored?</b>\n"
-                            "🔓 Join the <a href='https://t.me/+FCugUePRvK0zN2U9'>BOA VIP archive</a> for exclusive sets.\n\n"
+                            "🔓 Join the <a href='https://t.me/+ojNAjjMDipxlOGY1'>BOA VIP archive</a> for exclusive sets.\n\n"
                             "<i>All content is AI-generated. No real identities. 18+ fantasy only.</i>",
 
                             "💎 <b>Unblurred, uncut, unreleased.</b>\n"
-                            "🖤 Access the archive: <a href='https://t.me/+FCugUePRvK0zN2U9'>Join BOA VIP</a>\n\n"
+                            "🖤 Access the archive: <a href='https://t.me/+ojNAjjMDipxlOGY1'>Join BOA VIP</a>\n\n"
                             "<i>Crafted with Midjourney & LORA. NSFW AI art. Fiction only.</i>",
 
                             "👀 <b>What you see is just the surface.</b>\n"
-                            "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+FCugUePRvK0zN2U9'>BOA VIP Vault</a>\n\n"
+                            "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+ojNAjjMDipxlOGY1'>BOA VIP Vault</a>\n\n"
                             "<i>All models are synthetic. Viewer discretion advised. 18+ only.</i>"
                         ]
 
