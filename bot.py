@@ -151,9 +151,9 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
             logger.warning(f"⚠️ Failed to send to {target}: {e}")
             print(f"❌ Copy error to {target}: {e}")
     
-    if not QUEUE:
-    global last_activity_time
-    last_activity_time = time.time()
+        if not QUEUE:
+        global last_activity_time
+        last_activity_time = time.time()
 
 async def shutdown_if_idle(context: ContextTypes.DEFAULT_TYPE):
     global last_activity_time
