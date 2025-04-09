@@ -6,6 +6,8 @@ load_dotenv()
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 import logging
+import random  # 👈 Add this for rotating promo messages
+
 
 print(">>> DEBUG: Loading environment variables...")
 
