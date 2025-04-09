@@ -79,9 +79,14 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif msg.text:
         media_type = "text"
 
-    QUEUE.append((msg.chat_id, msg.message_id, media_type, duration))
+        QUEUE.append((msg.chat_id, msg.message_id, media_type, duration))
+
+    global last_activity_time
+    last_activity_time = time.time()  # ⏱️ Reset idle timer
+
     await msg.reply_text(f"✅ Queued! Current queue: {len(QUEUE)}")
     logger.info(f"✅ Queued by admin {update.effective_user.id}")
+
 
 
 
