@@ -124,7 +124,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                 PUBLIC_POST_COUNTER += 1
                 print(f"📊 Public post count: {PUBLIC_POST_COUNTER}")
 
-                if PUBLIC_POST_COUNTER >= 3:
+                                if PUBLIC_POST_COUNTER >= 3:
                     try:
                         # Promo message rotation pool
                         promo_messages = [
@@ -153,9 +153,10 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                     except Exception as e:
                         logger.warning(f"⚠️ Failed to send promo: {e}")
                     PUBLIC_POST_COUNTER = 0  # Reset
-                except Exception as e:
+        except Exception as e:
             logger.warning(f"⚠️ Failed to send to {target}: {e}")
             print(f"❌ Copy error to {target}: {e}")
+
 
 # ⏱️ Reset idle timer if queue is empty after processing
 if not QUEUE:
