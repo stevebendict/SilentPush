@@ -11,10 +11,10 @@ import random  # 👈 Add this for rotating promo messages
 print(">>> DEBUG: Loading environment variables...")
 
 # ✅ Hardcoded config
-BOT_TOKEN = "7728785789:AAEK7O-NBdl4XD1DhtpBM_oeGb48Ptl7ZpA"
+BOT_TOKEN = "8073218440:AAH0p3EdUOIA5AmC0wKIeCNT4kDTrPpG16M"
 ADMIN_IDS = [6043250029, 7664906760]
 TARGET_CHANNEL_PUBLIC = "-1002642246708"     # Public Channel
-TARGET_CHANNEL_PRIVATE = "-1002579354695"    # Paid Private Channel
+TARGET_CHANNEL_PRIVATE = "-1002503861659"    # Paid Private Channel
 
 # ✅ Optional debug print
 print(f">>> BOT_TOKEN: {repr(BOT_TOKEN)}")
@@ -127,7 +127,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                         # Promo message rotation pool
                         promo_messages = [
                             "🔥 <b>Want the full uncensored?</b>\n"
-                            "🔓 Join the <a href='https://t.me/+ojNAjjMDipxlOGY1'>BOA VIP archive</a> for exclusive sets.\n\n"
+                            "🔓 Join the <a href='https://t.me/+BWfoo1IJHxMxMDY1'>BOA VIP archive</a> for exclusive sets.\n\n"
                             "<i>All content is AI-generated. No real identities. 18+ fantasy only.</i>",
 
                             "🤝 <b>Want a friend to join too?</b>\n"
@@ -136,7 +136,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                             "<i>Only share with someone you trust. 18+ AI content.</i>",
 
                             "💎 <b>Unblurred, uncut, unreleased.</b>\n"
-                            "🖤 Access the archive: <a href='https://t.me/+ojNAjjMDipxlOGY1'>Join BOA VIP</a>\n\n"
+                            "🖤 Access the archive: <a href='https://t.me/+BWfoo1IJHxMxMDY1'>Join BOA VIP</a>\n\n"
                             "<i>Crafted with Midjourney & LORA. NSFW AI art. Fiction only.</i>",
 
                             "📲 <b>Yes, you can share this link.</b>\n"
@@ -145,7 +145,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                             "<i>One invite could make someone’s day. Keep it 18+.</i>",
 
                             "👀 <b>What you see is just the surface.</b>\n"
-                            "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+ojNAjjMDipxlOGY1'>BOA VIP Vault</a>\n\n"
+                            "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+BWfoo1IJHxMxMDY1'>BOA VIP Vault</a>\n\n"
                             "<i>All models are synthetic. Viewer discretion advised. 18+ only.</i>"
 
                             "💬 <b>Want to put someone on?</b>\n"
