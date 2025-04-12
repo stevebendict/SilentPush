@@ -100,7 +100,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
     send_to_private = True
 
     # Restrict public posts if video is too long
-    if media_type == "video" and duration > 60:
+    if media_type == "video" and duration > 120:
         send_to_public = False
 
     targets = []
