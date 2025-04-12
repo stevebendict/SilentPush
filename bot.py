@@ -122,7 +122,7 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                 PUBLIC_POST_COUNTER += 1
                 print(f"📊 Public post count: {PUBLIC_POST_COUNTER}")
 
-                if PUBLIC_POST_COUNTER >= 3:
+                if PUBLIC_POST_COUNTER >= 2:
                     try:
                         # Promo message rotation pool
                         promo_messages = [
@@ -130,13 +130,28 @@ async def copy_from_queue(context: ContextTypes.DEFAULT_TYPE):
                             "🔓 Join the <a href='https://t.me/+ojNAjjMDipxlOGY1'>BOA VIP archive</a> for exclusive sets.\n\n"
                             "<i>All content is AI-generated. No real identities. 18+ fantasy only.</i>",
 
+                            "🤝 <b>Want a friend to join too?</b>\n"
+                            "Here’s your private invite link — yes, it is the Best of Asian:\n"
+                            "👉 <a href='https://t.me/+QFMDwKO4xEA0NmM1'>Join the private channel</a>\n\n"
+                            "<i>Only share with someone you trust. 18+ AI content.</i>",
+
                             "💎 <b>Unblurred, uncut, unreleased.</b>\n"
                             "🖤 Access the archive: <a href='https://t.me/+ojNAjjMDipxlOGY1'>Join BOA VIP</a>\n\n"
                             "<i>Crafted with Midjourney & LORA. NSFW AI art. Fiction only.</i>",
 
+                            "📲 <b>Yes, you can share this link.</b>\n"
+                            "Copy it. Send it to someone who’d appreciate the content:\n"
+                            "👉 <a href='https://t.me/+QFMDwKO4xEA0NmM1'>Invite link</a>\n\n"
+                            "<i>One invite could make someone’s day. Keep it 18+.</i>",
+
                             "👀 <b>What you see is just the surface.</b>\n"
                             "🔓 Get full scenes & bonus drops inside: <a href='https://t.me/+ojNAjjMDipxlOGY1'>BOA VIP Vault</a>\n\n"
                             "<i>All models are synthetic. Viewer discretion advised. 18+ only.</i>"
+
+                            "💬 <b>Want to put someone on?</b>\n"
+                            "Here’s the link. Just copy & send — this is the Best of Asian:\n"
+                            "👉 <a href='https://t.me/+QFMDwKO4xEA0NmM1'>Share this</a>\n\n"
+                            "<i>NSFW AI art. Invite-only. Share with care.</i>"
                         ]
 
                         promo_text = random.choice(promo_messages)
