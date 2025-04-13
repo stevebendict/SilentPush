@@ -5,7 +5,7 @@ A drip content Telegram bot that queues forwarded messages and posts every 3 min
 
 ## 🚀 Commands
 
-- `/status` — check how many messages are queued
+- `/status` — check how many messages or content are queued
 - `/clear` — delete all items in the queue
 - `/ping` — simple alive check for UptimeRobot
 
