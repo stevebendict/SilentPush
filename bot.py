@@ -73,8 +73,6 @@ async def add_to_queue(update: Update, context: ContextTypes.DEFAULT_TYPE):
         media_type = "photo"
     elif msg.document:
         media_type = "document"
-    elif msg.text:
-        media_type = "text"
 
     # ✅ Append regardless of type — as long as it's valid
     if media_type:
