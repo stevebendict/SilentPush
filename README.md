@@ -11,7 +11,7 @@ A drip content Telegram bot that queues forwarded messages and posts every 3 min
 
 ## 🛠 Deploy on Railway
 
-1. Push this project to GitHub
+1. Push this project to GitHub now
 2. Create new Railway project → deploy from GitHub
 3. Set environment variables:
    - `BOT_TOKEN`
