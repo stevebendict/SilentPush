@@ -209,7 +209,7 @@ app.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VI
 # Catch-all fallback for any message type not already handled
 app.add_handler(MessageHandler(filters.ALL, add_to_queue))
 
-app.job_queue.run_repeating(copy_from_queue, interval=30, first=10)
+app.job_queue.run_repeating(copy_from_queue, interval=10, first=10)
 app.job_queue.run_repeating(shutdown_if_idle, interval=300, first=300)
 
 app.run_polling()
