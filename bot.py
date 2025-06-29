@@ -11,9 +11,9 @@ import random  # 👈 Add this for rotating promo messages
 print(">>> DEBUG: Loading environment variables...")
 
 # ✅ Hardcoded config
-BOT_TOKEN = "8073218440:AAH0p3EdUOIA5AmC0wKIeCNT4kDTrPpG16M"
-ADMIN_IDS = [6043250029, 7664906760]
-TARGET_CHANNEL_PUBLIC = "-1002642246708"     # Public Channel
+BOT_TOKEN = "7577559158:AAErjgUQ1s3RMQKfWY7-YE0HjU3ypFd570Q"
+ADMIN_IDS = [6043250029, 7664906760, 5904544415]
+TARGET_CHANNEL_PUBLIC = "-1002780958846"     # Public Channel
 TARGET_CHANNEL_PRIVATE = "-1002503861659"    # Paid Private Channel
 
 # ✅ Optional debug print
